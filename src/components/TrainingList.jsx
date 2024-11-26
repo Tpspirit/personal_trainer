@@ -24,6 +24,14 @@ function TrainingList() {
     },
     { field: "duration", filter: true, sortable: true },
     { field: "activity", filter: true, sortable: true },
+    {
+      field: "customer",
+      headerName: "Customer",
+      filter: true,
+      sortable: true,
+      valueGetter: (params) =>
+        `${params.data.customer.firstname} ${params.data.customer.lastname}`,
+    },
   ]);
 
   useEffect(() => {
@@ -33,9 +41,28 @@ function TrainingList() {
   const handleFetch = () => {
     fetchTraining()
       .then((data) => {
-        setTraininglist(data._embedded.trainings);
+        const fetchCustomer = data._embedded.trainings.map((training) =>
+          fetch(training._links.customer.href)
+            .then((response) => response.json())
+            .then((data) => {
+              // Add the customer field with data to the training object
+              return { ...training, customer: data };
+            })
+            .catch((err) => {
+              console.error(err);
+            })
+        );
+
+        // Wait for all customer data fetches to complete
+        return Promise.all(fetchCustomer);
       })
-      .catch((err) => console.error(err));
+      .then((finalTrainings) => {
+        // Update the state with a final training, including customer data
+        setTraininglist(finalTrainings);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
