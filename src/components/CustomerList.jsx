@@ -10,6 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 
 import { fetchCustomer, deleteCustomer } from "../customerAPI";
 import AddCustomer from "./AddCustomer";
+import EditCustomer from "./EditCustomer";
 
 function CustomerList() {
   const [customerlist, setCustomerlist] = useState([]);
@@ -17,6 +18,12 @@ function CustomerList() {
   const [open, setOpen] = useState(false);
 
   const [columnDefs, setColumnDefs] = useState([
+    {
+      cellRenderer: (params) => (
+        <EditCustomer handleFetch={handleFetch} data={params.data} />
+      ),
+      width: 120,
+    },
     {
       cellRenderer: (params) => (
         <Button

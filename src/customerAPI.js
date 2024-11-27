@@ -29,6 +29,19 @@ export function deleteCustomer(url) {
   });
 }
 
+export function updateCustomer(url, updatedCustomer) {
+  return fetch(url, {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify(updatedCustomer),
+  }).then((response) => {
+    if (!response.ok)
+      throw new Error("Error in update: " + response.statusText);
+
+    return response.json();
+  });
+}
+
 // Training Func
 export function fetchTraining() {
   return fetch(import.meta.env.VITE_TRAINING_API_URL).then((response) => {
