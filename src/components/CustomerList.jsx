@@ -11,6 +11,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { fetchCustomer, deleteCustomer } from "../customerAPI";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
+import AddTraining from "./AddTraining";
 
 function CustomerList() {
   const [customerlist, setCustomerlist] = useState([]);
@@ -18,6 +19,13 @@ function CustomerList() {
   const [open, setOpen] = useState(false);
 
   const [columnDefs, setColumnDefs] = useState([
+    {
+      field: "Action",
+      cellRenderer: (params) => (
+        <AddTraining handleFetch={handleFetch} data={params.data} />
+      ),
+      width: 190,
+    },
     {
       cellRenderer: (params) => (
         <EditCustomer handleFetch={handleFetch} data={params.data} />
@@ -34,6 +42,7 @@ function CustomerList() {
           Delete
         </Button>
       ),
+      width: 120,
     },
     { field: "firstname", filter: true, sortable: true },
     { field: "lastname", filter: true, sortable: true },
@@ -57,7 +66,11 @@ function CustomerList() {
   };
 
   const handleDelete = (url) => {
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this customer? You cannot undo this action."
+      )
+    ) {
       deleteCustomer(url)
         .then(() => {
           handleFetch();
@@ -74,7 +87,14 @@ function CustomerList() {
 
       <div
         className="ag-theme-material"
-        style={{ width: "100vw", height: "100vh" }}
+        style={{
+          width: "90vw",
+          height: "100vh",
+          margin: "20px auto",
+          borderRadius: "10px",
+          boxShadow: " 0 8px 16px rgba(0, 0, 0, 0.2)",
+          overflow: "hidden",
+        }}
       >
         <AgGridReact
           rowData={customerlist}
@@ -87,7 +107,7 @@ function CustomerList() {
         open={open}
         autoHideDuration={3000}
         onClose={() => setOpen(false)}
-        message="Car deleted"
+        message="Customer deleted"
       />
     </>
   );

@@ -5,15 +5,30 @@ import { AgGridReact } from "ag-grid-react";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import { Button } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 
 import dayjs from "dayjs";
 
-import { fetchTraining } from "../customerAPI";
+import { fetchTraining, deleteTraining } from "../customerAPI";
 
 function TrainingList() {
+  const [open, setOpen] = useState(false);
+
   const [traininglist, setTraininglist] = useState([]);
 
   const [columnDefs, setColumnDefs] = useState([
+    {
+      cellRenderer: (params) => (
+        <Button
+          color="error"
+          size="small"
+          onClick={() => handleDelete(params.data._links.self.href)}
+        >
+          Delete
+        </Button>
+      ),
+    },
     {
       field: "date",
       filter: true,
@@ -65,11 +80,34 @@ function TrainingList() {
       });
   };
 
+  const handleDelete = (url) => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this training? You cannot undo this action."
+      )
+    ) {
+      deleteTraining(url)
+        .then(() => {
+          handleFetch();
+          setOpen(true);
+        })
+
+        .catch((err) => console.error(err));
+    }
+  };
+
   return (
     <>
       <div
         className="ag-theme-material"
-        style={{ width: "100vw", height: "100vh" }}
+        style={{
+          width: "90vw",
+          height: "100vh",
+          margin: "20px auto",
+          borderRadius: "10px",
+          boxShadow: " 0 8px 16px rgba(0, 0, 0, 0.2)",
+          overflow: "hidden",
+        }}
       >
         <AgGridReact
           rowData={traininglist}
@@ -78,6 +116,12 @@ function TrainingList() {
           paginationAutoPageSize={true}
         />
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+        message="Training deleted"
+      />
     </>
   );
 }

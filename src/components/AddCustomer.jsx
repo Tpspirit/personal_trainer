@@ -69,7 +69,6 @@ export default function AddCustomer(props) {
             label="Firstname"
             value={customer.firstname}
             onChange={handleChange}
-            type="email"
             fullWidth
             variant="outlined"
           />
@@ -80,7 +79,6 @@ export default function AddCustomer(props) {
             label="Lastname"
             value={customer.lastname}
             onChange={handleChange}
-            type="email"
             fullWidth
             variant="outlined"
           />
@@ -91,7 +89,6 @@ export default function AddCustomer(props) {
             label="Street Address"
             value={customer.streetaddress}
             onChange={handleChange}
-            type="email"
             fullWidth
             variant="outlined"
           />
@@ -102,7 +99,6 @@ export default function AddCustomer(props) {
             label="Postcode"
             value={customer.postcode}
             onChange={handleChange}
-            type="email"
             fullWidth
             variant="outlined"
           />
@@ -113,7 +109,6 @@ export default function AddCustomer(props) {
             label="City"
             value={customer.city}
             onChange={handleChange}
-            type="email"
             fullWidth
             variant="outlined"
           />
@@ -135,7 +130,6 @@ export default function AddCustomer(props) {
             label="Phone"
             value={customer.phone}
             onChange={handleChange}
-            type="email"
             fullWidth
             variant="outlined"
           />
