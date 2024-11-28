@@ -83,7 +83,7 @@ function CustomerList() {
     }
   };
 
-  // Export function
+  // Export CSV function
   const handleExport = () => {
     // Filter out extra columns (buttons)
     const exportedData = customerlist.map(
@@ -112,11 +112,11 @@ function CustomerList() {
     // Create a download file (blob) with the CSV data
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
 
-    // Create a temporary link to trigger the download
+    // Create a temporary link to download
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "customers.csv"; // Name of the exported file
-    link.click(); // Simulate a click on the link to start the download
+    link.download = "customers.csv"; // Give a file name
+    link.click(); // Click to donwload
   };
 
   return (
@@ -126,7 +126,7 @@ function CustomerList() {
         variant="contained"
         color="primary"
         onClick={handleExport}
-        style={{ margin: "0 10px" }}
+        style={{ marginLeft: "10px", marginRight: "auto" }}
       >
         Export CSV
       </Button>
@@ -134,7 +134,7 @@ function CustomerList() {
       <div
         className="ag-theme-material"
         style={{
-          width: "90vw",
+          width: "92vw",
           height: "100vh",
           margin: "20px auto",
           borderRadius: "10px",

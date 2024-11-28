@@ -49,6 +49,7 @@ function TrainingList() {
     },
   ]);
 
+  // Fetch training data
   useEffect(() => {
     handleFetch();
   }, []);
@@ -101,7 +102,7 @@ function TrainingList() {
       <div
         className="ag-theme-material"
         style={{
-          width: "90vw",
+          width: "92vw",
           height: "100vh",
           margin: "20px auto",
           borderRadius: "10px",
