@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 import { AgGridReact } from "ag-grid-react";
-
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { Button } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
+import Papa from "papaparse";
 
 import { fetchCustomer, deleteCustomer } from "../customerAPI";
 import AddCustomer from "./AddCustomer";
@@ -57,6 +57,7 @@ function CustomerList() {
     handleFetch();
   }, []);
 
+  // Fetch function
   const handleFetch = () => {
     fetchCustomer()
       .then((data) => {
@@ -65,6 +66,7 @@ function CustomerList() {
       .catch((err) => console.error(err));
   };
 
+  // Delete function
   const handleDelete = (url) => {
     if (
       window.confirm(
@@ -81,9 +83,53 @@ function CustomerList() {
     }
   };
 
+  // Export function
+  const handleExport = () => {
+    // Filter out extra columns (buttons)
+    const exportedData = customerlist.map(
+      ({
+        firstname,
+        lastname,
+        streetaddress,
+        postcode,
+        city,
+        email,
+        phone,
+      }) => ({
+        firstname,
+        lastname,
+        streetaddress,
+        postcode,
+        city,
+        email,
+        phone,
+      })
+    );
+
+    // Convert the data to CSV format
+    const csv = Papa.unparse(exportedData);
+
+    // Create a download file (blob) with the CSV data
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+    // Create a temporary link to trigger the download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "customers.csv"; // Name of the exported file
+    link.click(); // Simulate a click on the link to start the download
+  };
+
   return (
     <>
       <AddCustomer handleFetch={handleFetch} />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleExport}
+        style={{ margin: "0 10px" }}
+      >
+        Export CSV
+      </Button>
 
       <div
         className="ag-theme-material"
@@ -103,6 +149,7 @@ function CustomerList() {
           paginationAutoPageSize={true}
         />
       </div>
+
       <Snackbar
         open={open}
         autoHideDuration={3000}
