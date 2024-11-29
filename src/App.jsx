@@ -13,6 +13,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import CustomerList from "./components/CustomerList";
 import TrainingList from "./components/TrainingList";
 import CalendarTraining from "./components/CalendarTraining";
+import Statistics from "./components/Statistics";
 
 function App() {
   const [value, setValue] = React.useState("1");
@@ -35,6 +36,7 @@ function App() {
             <Tab label="CUSTOMER" value="1" />
             <Tab label="TRAININGS" value="2" />
             <Tab label="CALENDAR" value="3" />
+            <Tab label="STATISTICS" value="4" />
           </TabList>
           {/* // Customer List */}
           <TabPanel value="1">
@@ -47,6 +49,10 @@ function App() {
           {/* Calendar */}
           <TabPanel value="3">
             <CalendarTraining />
+          </TabPanel>
+          {/* Statistic */}
+          <TabPanel value="4">
+            <Statistics />
           </TabPanel>
         </TabContext>
         <CssBaseline />
