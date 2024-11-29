@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Papa from "papaparse";
 
-import { fetchCustomer, deleteCustomer } from "../customerAPI";
+import { fetchCustomer, deleteCustomer } from "../API";
 import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";

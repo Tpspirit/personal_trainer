@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { saveCustomer } from "../customerAPI";
+import { saveCustomer } from "../API";
 
 export default function AddCustomer(props) {
   const [open, setOpen] = useState(false);

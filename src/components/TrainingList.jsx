@@ -10,7 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 
 import dayjs from "dayjs";
 
-import { fetchTraining, deleteTraining } from "../customerAPI";
+import { fetchTraining, deleteTraining } from "../API";
 
 function TrainingList() {
   const [open, setOpen] = useState(false);

@@ -3,7 +3,7 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from "dayjs";
 
-import { fetchTraining } from "../customerAPI";
+import { fetchTraining } from "../API";
 
 function CalendarTraining() {
   const [events, setEvents] = useState([]);
